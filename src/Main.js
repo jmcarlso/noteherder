@@ -5,11 +5,11 @@ import NoteList from './NoteList'
 import Sidebar from './Sidebar'
 import NoteForm from './NoteForm'
 
-const Main = () => {
+const Main = (props) => {
 return (
-<div className="Main">
+    <div className="Main">
          <Sidebar />
-         <NoteList />
+         <NoteList notes={props.notes}/>
          <NoteForm />
     </div>
 
