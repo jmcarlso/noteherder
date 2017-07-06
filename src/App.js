@@ -10,23 +10,11 @@ class App extends Component {
 
     this.setCurrentNote = this.setCurrentNote.bind(this)
     this.state = {
-      notes: {    
-      'note-4':{   id: 'note-4',
-        title:'App',
-        body: 'Oh so nice',
-    },
-    'note-5':{
-        id: 'note-5',
-        title:'aAsdnother',
-        body: 'Oh so fancy',
-    },
-      },
+      notes: [],
   
-  currentNote :{
-    id: null,
-    title: '',
-    body: '',
-  },
+  currentNote :this.blankNote(),
+
+
   }
 }
 blankNote = () => {
@@ -54,15 +42,26 @@ saveNote = (note) => {
   this.setCurrentNote(note)
 
 }
+removeCurrentNote = () => {
+  const notes = {...this.state.notes}
+
+  delete notes[this.state.currentNote.id]
+
+  this.setState({notes})
+  this.resetCurrentNote()
+
+}
+
 
   render() {
     const actions = {
       setCurrentNote: this.setCurrentNote,
       resetCurrentNote: this.resetCurrentNote,
       saveNote: this.saveNote,
+      removeCurrentNote: this.removeCurrentNote,
     }
 
-
+    
     return (
       <div className="App">
        <Main notes={this.state.notes} 
