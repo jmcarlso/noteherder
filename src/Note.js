@@ -1,15 +1,21 @@
 import React from 'react'
 
-const Note = (props) => {
-     return (<a className="active">
+const Note = ({setCurrentNote, note}) => {
+    const handleCLick = () =>
+    {
+        setCurrentNote(note)
+
+    }
+     return (
+     <a onClick={handleCLick}>
               <li>
                 <div className="note">
                   <div className="note-title">
-                    {props.note.title}
+                    {note.title}
                   </div>
                   <div className="note-body">
                     <p>
-                        {props.note.body}             
+                        {note.body}             
                     </p>
                   </div>
                 </div>

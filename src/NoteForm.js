@@ -1,9 +1,21 @@
 import React from 'react'
 import './NoteForm.css'
+import './Note.js'
 
 class NoteForm extends React.Component {
+
+handleChanges = (ev) => {
+    const note = {...this.props.currentNote}
+    note[ev.target.name] = ev.target.value
+    this.props.saveNote(note)
+}
+
+
 render()
 {
+    
+    const {currentNote}=this.props
+
     return (<div className="NoteForm">
           <div className="form-actions">
             <button type="button">
@@ -12,14 +24,20 @@ render()
           </div>
           <form>
             <p>
-              <input
+              <input 
                 type="text"
                 name="title"
                 placeholder="Title your note"
+                value={currentNote.title}
+                onChange={this.handleChanges}
               />
             </p>
             
-            <textarea name="body"></textarea>
+            <textarea name="body"
+            value={currentNote.body}
+            onChange={this.handleChanges}>
+
+            </textarea>
           </form>
         </div>
     )

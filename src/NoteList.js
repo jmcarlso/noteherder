@@ -3,16 +3,18 @@ import React from 'react'
 import './NoteList.css'
 import Note from './Note'
 
-const NoteList = (props) =>{
+const NoteList = ({notes, setCurrentNote}) =>{
 
-    const noteIds = Object.keys(props.notes)
+    const noteIds = Object.keys(notes)
 
 
 return (<div className="NoteList">
           <h3>Notes</h3>
           <ul id="notes">
-              {noteIds.map(noteId => <Note note={props.notes[noteId]} />)}
-           
+              {noteIds.map(noteId => (<Note note={notes[noteId]}
+               key={noteId}
+              setCurrentNote={setCurrentNote} />
+              ))}
           </ul>
         </div>)
 }

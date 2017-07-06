@@ -4,7 +4,7 @@ import './Sidebar.css'
 import quill from './quill.svg'
 import newHover from './new-hover.png'
 import newIcon from './new.png'
-const Sidebar = () => {
+const Sidebar = (props) => {
 return( 
         <nav className="Sidebar">
           <div className="logo">
@@ -12,7 +12,8 @@ return(
           </div>
           <a className="new-note" href="/notes">
             <img src={newHover} alt="New note" />
-            <img className="outline" src={newIcon} alt="New note" /> 
+            <img className="outline" src={newIcon} alt="New note"  
+            onClick={() => props.resetCurrentNote}/>
           </a>
           <div className="SignOut">
             <button>
