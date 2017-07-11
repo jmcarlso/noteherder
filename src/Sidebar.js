@@ -10,13 +10,15 @@ return(
           <div className="logo">
             <img src={quill} alt="Noteherder" />
           </div>
+          
           <a className="new-note" href="/notes">
             <img src={newHover} alt="New note" />
             <img className="outline" src={newIcon} alt="New note"  
             onClick={() => props.resetCurrentNote}/>
           </a>
+
           <div className="SignOut">
-            <button>
+            <button onClick={props.signOut}>
               <i className="fa fa-sign-out"></i>
             </button>
           </div>

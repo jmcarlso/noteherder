@@ -1,15 +1,56 @@
 import React from 'react'
 import './NoteForm.css'
 import './Note.js'
-
+import RichTextEditor from 'react-rte'
 class NoteForm extends React.Component {
 
-handleChanges = (ev) => {
-    const note = {...this.props.currentNote}
-    note[ev.target.name] = ev.target.value
-    this.props.saveNote(note)
+constructor(props) {
+    super(props)
+    this.state = {
+        note: this.blankNote(),
+        editorValue: RichTextEditor.createEmptyValue()
+    }
 }
 
+blankNote = () => {
+  return{
+     id: null,
+    title: '',
+    body: '',
+      }
+    }
+
+componentWillReceiveProps = (nextProps) => {
+    const nextId = nextProps.currentNoteId
+    const note = nextProps.notes[nextId] || this.blankNote()
+
+let editorValue = this.state.editorValue
+if(editorValue.toString('html') !== note.body){
+    editorValue = RichTextEditor.createValueFromString(note.body, 'html')
+}
+
+this.setState({note, editorValue})
+
+}
+
+
+handleChanges = (ev) => {
+    const note = {...this.state.note}
+    note[ev.target.name] = ev.target.value
+    this.setState(
+        {note},
+        () => this.props.saveNote(note)
+    )
+    
+}
+
+handleEditorChanges = (editorValue) => {
+     const note = {...this.state.note}
+     note.body = editorValue.toString('html')
+     this.setState({note, editorValue},
+     () => this.props.saveNote(note))
+      
+}
 
 render()
 {
@@ -29,16 +70,16 @@ render()
                 type="text"
                 name="title"
                 placeholder="Title your note"
-                value={currentNote.title}
+                value={this.state.note.title}
                 onChange={this.handleChanges}
               />
             </p>
             
-            <textarea name="body"
-            value={currentNote.body}
-            onChange={this.handleChanges}>
+            <RichTextEditor name="body"
+            value = {this.state.editorValue}
+            onChange={this.handleEditorChanges}>
 
-            </textarea>
+            </RichTextEditor>
           </form>
         </div>
     )
