@@ -21,8 +21,17 @@ blankNote = () => {
     }
 
 componentWillReceiveProps = (nextProps) => {
-    const nextId = nextProps.currentNoteId
+    const idFromUrl = nextProps.match.params.id
+
+    const nextId = nextProps.match.params.id
     const note = nextProps.notes[nextId] || this.blankNote()
+
+const noteNotFound = idFromUrl && !note.id
+if(noteNotFound && nextProps.firebaseNotesSynced)
+{
+    this.props.history.push('/notes')
+}
+
 
 let editorValue = this.state.editorValue
 if(editorValue.toString('html') !== note.body){
@@ -55,12 +64,12 @@ handleEditorChanges = (editorValue) => {
 render()
 {
     
-    const {currentNote}=this.props
+   
 
     return (<div className="NoteForm">
           <div className="form-actions">
             <button type="button"
-            onClick={this.props.removeCurrentNote}>
+            onClick={() => this.props.removeNote(this.state.note)}>
               <i className="fa fa-trash-o"></i>
             </button>
           </div>

@@ -1,4 +1,6 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
+
 
 import './Sidebar.css'
 import quill from './quill.svg'
@@ -11,11 +13,11 @@ return(
             <img src={quill} alt="Noteherder" />
           </div>
           
-          <a className="new-note" href="/notes">
+          <Link className="new-note" to="/notes">
             <img src={newHover} alt="New note" />
             <img className="outline" src={newIcon} alt="New note"  
-            onClick={() => props.resetCurrentNote}/>
-          </a>
+            />
+          </Link>
 
           <div className="SignOut">
             <button onClick={props.signOut}>

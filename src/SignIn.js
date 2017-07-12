@@ -32,8 +32,11 @@ const SignIn = () => {
         </button>
         <button
         className="github"
+        
         onClick={authenticateGitHub}
+        className="fa fa-github" aria-hidden="true">
         >
+        
         Sign in with GitHub
         </button>
       </main>
