@@ -1,0 +1,39 @@
+[debug] [2017-07-12T20:07:55.262Z] ----------------------------------------------------------------------
+[debug] [2017-07-12T20:07:55.265Z] Command:      C:\Program Files\nodejs\node.exe C:\Users\guita\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase init
+[debug] [2017-07-12T20:07:55.266Z] CLI Version:  3.9.1
+[debug] [2017-07-12T20:07:55.266Z] Platform:     win32
+[debug] [2017-07-12T20:07:55.266Z] Node Version: v6.11.0
+[debug] [2017-07-12T20:07:55.267Z] Time:         Wed Jul 12 2017 16:07:55 GMT-0400 (US Eastern Daylight Time)
+[debug] [2017-07-12T20:07:55.267Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-07-12T20:07:55.283Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] [2017-07-12T20:07:55.284Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\guita\xtbc\noteherder
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2017-07-12T20:08:04.148Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2017-07-12T20:08:04.149Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/2i-sSamPxzpo5J-BC3ZYx76NV5oCcYrWMt_qat2AhkQ',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Wed Jul 12 2017 16:08:04 GMT-0400 (US Eastern Daylight Time)
+[debug] [2017-07-12T20:08:04.371Z] <<< HTTP RESPONSE 200
+[debug] [2017-07-12T20:08:04.425Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects  
+ Wed Jul 12 2017 16:08:04 GMT-0400 (US Eastern Daylight Time)
+[debug] [2017-07-12T20:08:05.314Z] <<< HTTP RESPONSE 200

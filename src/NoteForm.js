@@ -1,97 +1,97 @@
-import React from 'react'
-import './NoteForm.css'
-import './Note.js'
+import React, { Component } from 'react'
 import RichTextEditor from 'react-rte'
-class NoteForm extends React.Component {
 
-constructor(props) {
+import './NoteForm.css'
+
+class NoteForm extends Component {
+  constructor(props) {
     super(props)
     this.state = {
-        note: this.blankNote(),
-        editorValue: RichTextEditor.createEmptyValue()
+      note: this.blankNote(),
+      editorValue: RichTextEditor.createEmptyValue(),
     }
-}
+  }
 
-blankNote = () => {
-  return{
-     id: null,
-    title: '',
-    body: '',
-      }
-    }
-
-componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps = (nextProps) => {
     const idFromUrl = nextProps.match.params.id
+    const note = nextProps.notes[idFromUrl] || this.blankNote()
 
-    const nextId = nextProps.match.params.id
-    const note = nextProps.notes[nextId] || this.blankNote()
+    const noteNotFound = idFromUrl && !note.id
+    if (noteNotFound && nextProps.firebaseNotesSynced) {
+      this.props.history.push('/notes')
+    }
 
-const noteNotFound = idFromUrl && !note.id
-if(noteNotFound && nextProps.firebaseNotesSynced)
-{
-    this.props.history.push('/notes')
-}
+    let editorValue = this.state.editorValue
+    if (editorValue.toString('html') !== note.body) {
+      editorValue = RichTextEditor.createValueFromString(note.body, 'html')
+    }
 
+    this.setState({ note, editorValue })
+  }
 
-let editorValue = this.state.editorValue
-if(editorValue.toString('html') !== note.body){
-    editorValue = RichTextEditor.createValueFromString(note.body, 'html')
-}
+  blankNote = () => {
+    return {
+      id: null,
+      title: '',
+      body: '',
+      updatedAt: null,
+    }
+  }
 
-this.setState({note, editorValue})
-
-}
-
-
-handleChanges = (ev) => {
+  handleChanges = (ev) => {
     const note = {...this.state.note}
     note[ev.target.name] = ev.target.value
+
     this.setState(
-        {note},
-        () => this.props.saveNote(note)
+      { note },
+      () => this.props.saveNote(note)
     )
-    
-}
+  }
 
-handleEditorChanges = (editorValue) => {
-     const note = {...this.state.note}
-     note.body = editorValue.toString('html')
-     this.setState({note, editorValue},
-     () => this.props.saveNote(note))
-      
-}
+  handleEditorChanges = (editorValue) => {
+    const note = {...this.state.note}
+    note.body = editorValue.toString('html')
+    this.setState(
+      { note, editorValue },
+      () => this.props.saveNote(note)
+    )
+  }
 
-render()
-{
-    
-   
+  handleRemove = () => {
+    this.props.removeNote(this.state.note)
+  }
 
-    return (<div className="NoteForm">
-          <div className="form-actions">
-            <button type="button"
-            onClick={() => this.props.removeNote(this.state.note)}>
-              <i className="fa fa-trash-o"></i>
-            </button>
-          </div>
-          <form>
-            <p>
-              <input 
-                type="text"
-                name="title"
-                placeholder="Title your note"
-                value={this.state.note.title}
-                onChange={this.handleChanges}
-              />
-            </p>
-            
-            <RichTextEditor name="body"
-            value = {this.state.editorValue}
-            onChange={this.handleEditorChanges}>
-
-            </RichTextEditor>
-          </form>
+  render() {
+    return (
+      <div className="NoteForm">
+        <div className="form-actions">
+          <button
+            type="button"
+            onClick={this.handleRemove}
+          >
+            <i className="fa fa-trash-o"></i>
+          </button>
         </div>
+        <form>
+          <p>
+            <input
+              type="text"
+              name="title"
+              placeholder="Title your note"
+              value={this.state.note.title}
+              onChange={this.handleChanges}
+            />
+          </p>
+          
+          <RichTextEditor
+            name="body"
+            value={this.state.editorValue}
+            onChange={this.handleEditorChanges}
+          ></RichTextEditor>
+        </form>
+      </div>
     )
+  }
 }
-}
+
 export default NoteForm
